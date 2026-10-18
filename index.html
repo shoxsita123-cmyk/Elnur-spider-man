@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SKYLINE SWINGER - 3D Web-Swinging Hero</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <canvas id="hudCanvas"></canvas>
+  <div id="speedLines"></div>
+  <div id="dmgFlash"></div>
+  <div id="vignette"></div>
+
+  <!-- ================= HUD ================= -->
+  <div id="hud" class="hidden">
+    <div id="heroPanel" class="panel">
+      <div class="heroName">NOVA <span>// SKYLINE GUARDIAN</span></div>
+      <div class="barWrap"><div id="hpFill"></div><div id="hpText">100</div></div>
+      <div id="speed">0 km/h</div>
+    </div>
+
+    <div id="scorePanel">
+      <div id="score">0</div>
+      <div id="hiscore">BEST 0</div>
+      <div id="combo"></div>
+    </div>
+
+    <div id="bossBar"><div class="bossName">TITAN ENFORCER</div><div class="bossTrack"><div id="bossFill"></div></div></div>
+
+    <div id="missionPanel" class="panel">
+      <div id="missionTitle">MISSION</div>
+      <div id="missionObj">-</div>
+      <div id="missionProg"></div>
+      <div id="missionTimer"></div>
+    </div>
+
+    <div id="crosshair"><i></i><i></i><i></i><i></i><b></b></div>
+    <div id="banner"><div id="bannerTitle"></div><div id="bannerSub"></div></div>
+    <div id="toasts"></div>
+    <div id="hint"></div>
+
+    <div id="minimapWrap"><canvas id="minimap" width="190" height="190"></canvas></div>
+    <div id="keysHelp">
+      <b>LMB</b> hold: web swing &nbsp; <b>RMB</b> web zip &nbsp; <b>F</b> strike &nbsp; <b>E</b> web shot &nbsp; <b>SPACE</b> jump &nbsp; <b>SHIFT</b> run / reel &nbsp; <b>M</b> mute
+    </div>
+  </div>
+  <div id="fps">-- FPS</div>
+
+  <!-- ================= START MENU ================= -->
+  <div id="menu" class="overlay">
+    <div class="menuCard">
+      <div class="logoSub">THE WEB-SWINGING SUPERHERO GAME</div>
+      <h1><span class="r">SKYLINE</span> <span class="b">SWINGER</span></h1>
+      <p class="tag">The city needs a hero. Swing between skyscrapers, climb walls, stop the gang and take down the Titan Enforcer.</p>
+      <button id="playBtn" class="bigBtn" disabled>LOADING CITY…</button>
+      <div id="loadInfo" class="small"></div>
+
+      <div class="controls">
+        <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</div>
+        <div><kbd>Mouse</kbd> Look around</div>
+        <div><kbd>Space</kbd> Jump / wall-jump / leave web</div>
+        <div><kbd>Shift</kbd> Run &nbsp;·&nbsp; reel web in</div>
+        <div><kbd>Hold LMB</kbd> Shoot web &amp; swing</div>
+        <div><kbd>RMB</kbd> Web zip to target</div>
+        <div><kbd>Hold W</kbd> at a wall: climb it</div>
+        <div><kbd>F</kbd> Punch / kick &nbsp;·&nbsp; <kbd>E</kbd> Web-shot</div>
+      </div>
+
+      <div class="settings">
+        <label>Graphics
+          <select id="qualitySel"><option value="high">High (bloom + shadows)</option><option value="medium">Medium</option><option value="low">Low (fast)</option></select>
+        </label>
+        <label>Mouse sensitivity <input id="sensRange" type="range" min="1" max="100" value="40"></label>
+      </div>
+      <div class="small">Press <kbd>Enter</kbd> or click START. Press <kbd>Esc</kbd> to pause. Arrow keys also rotate the camera.</div>
+    </div>
+  </div>
+
+  <!-- ================= PAUSE ================= -->
+  <div id="pause" class="overlay hidden">
+    <div class="menuCard narrow">
+      <h2>PAUSED</h2>
+      <button id="resumeBtn" class="bigBtn">RESUME</button>
+      <div class="settings">
+        <label>Graphics
+          <select id="qualitySel2"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
+        </label>
+        <label>Mouse sensitivity <input id="sensRange2" type="range" min="1" max="100" value="40"></label>
+      </div>
+      <button id="menuBtn" class="smallBtn">Quit to menu</button>
+    </div>
+  </div>
+
+  <!-- ================= GAME OVER ================= -->
+  <div id="gameover" class="overlay hidden">
+    <div class="menuCard narrow">
+      <h2 class="bad">HERO DOWN</h2>
+      <div class="stat">Score <b id="finalScore">0</b></div>
+      <div class="stat">Missions completed <b id="finalMissions">0</b></div>
+      <button id="retryBtn" class="bigBtn">TRY AGAIN</button>
+    </div>
+  </div>
+
+  <script src="lib/three.min.js"></script>
+  <script src="lib/CopyShader.js"></script>
+  <script src="lib/LuminosityHighPassShader.js"></script>
+  <script src="lib/EffectComposer.js"></script>
+  <script src="lib/RenderPass.js"></script>
+  <script src="lib/ShaderPass.js"></script>
+  <script src="lib/MaskPass.js"></script>
+  <script src="lib/UnrealBloomPass.js"></script>
+
+  <script src="js/util.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/city.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/enemies.js"></script>
+  <script src="js/missions.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/selftest.js"></script>
+</body>
+</html>
